@@ -79,7 +79,8 @@ Optionally, configure the repo's local git account
 $ cd ..
 $ git config user.name "Xue Xiao"
 $ git config user.email xue-xiao@users.noreply.github.com
-$ git config user.password "your password"
+$ git config credential.helper cache
+$ git config --global credential.usehttppath true
 ```
 
 Commit the change and push!
