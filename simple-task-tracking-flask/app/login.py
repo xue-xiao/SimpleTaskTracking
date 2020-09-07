@@ -25,7 +25,7 @@ def login():
     else:
         user: User = User.query.filter_by(email=cred['email']).first()
         if user is not None and Password.query.get(user.get_id()).validate(cred['password']):
-            login_user(user, remember=cred.get('remember', True))
+            login_user(user, remember=cred.get('remember', False))
             return standard_json_response(True, "Login successfully.")
         else:
             return standard_json_response(False, "Incorrect username or password.")

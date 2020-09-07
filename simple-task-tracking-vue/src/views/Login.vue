@@ -17,7 +17,7 @@ https://getbootstrap.com/docs/4.0/examples/sign-in/
             <input type="password" v-model="password" id="inputPassword" class="form-control" placeholder="Password" required>
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" value="remember-me" v-model="remember"> Remember me
                 </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -30,6 +30,7 @@ https://getbootstrap.com/docs/4.0/examples/sign-in/
 
     import Axios from 'axios';
     import ErrorAlert from "../components/utils/ErrorAlert";
+    import {APIS} from "../config";
 
     export default {
         name: "Login",
@@ -45,16 +46,18 @@ https://getbootstrap.com/docs/4.0/examples/sign-in/
             showError: false,
             errorMsg: "",
             email: "",
-            password: ""
+            password: "",
+            remember: true
         }),
         methods: {
             submitCredentials() {
                 const user_cred = {
                     email: this.email,
-                    password: this.password
+                    password: this.password,
+                    remember: this.remember
                 }
                 this.password = "";
-                Axios.post('http://localhost:5000/api/login', user_cred, { withCredentials: true })
+                Axios.post(APIS.LOGIN, user_cred, { withCredentials: true })
                     .then( response => {
                         // Axios automatically deserialized the response json to an object
                         if (response.data.success) {
