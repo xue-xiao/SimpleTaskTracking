@@ -13,6 +13,8 @@ def create_app(stage='dev'):
         # CLI: flask create-tables
         app.cli.add_command(create_tables)
 
+        # Enable Cross Origin Resource Sharing for all domain:port and all routes
+        CORS(app, supports_credentials=True)
 
     else:
         app.config.from_pyfile('prod_config.py')
@@ -25,9 +27,6 @@ def create_app(stage='dev'):
 
     # Register blueprints
     app.register_blueprint(api)
-
-    # Enable Cross Origin Resource Sharing for all domain:port and all routes
-    CORS(app, supports_credentials=True)
 
     @app.route('/ping')
     def ping():
