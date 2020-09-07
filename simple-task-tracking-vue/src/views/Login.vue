@@ -54,18 +54,19 @@ https://getbootstrap.com/docs/4.0/examples/sign-in/
                     password: this.password
                 }
                 this.password = "";
-                Axios.post('/api/login', user_cred)
-                    .then(function (response) {
-                        if (response.success) {
+                Axios.post('http://localhost:5000/api/login', user_cred, { withCredentials: true })
+                    .then( response => {
+                        // Axios automatically deserialized the response json to an object
+                        if (response.data.success) {
                             this.$router.push('/');
                         } else {
                             this.showError = true;
-                            this.errorMsg = "Incorrect username or password."
+                            this.errorMsg = response.data.message;
                         }
                     })
                     .catch(err => {
                         this.showError = true;
-                        this.errorMsg = "Something wrong with the system. Please try again later. ";
+                        this.errorMsg = "Something wrong with the server. Please try again later. ";
                         console.log(err)
                     });
             }

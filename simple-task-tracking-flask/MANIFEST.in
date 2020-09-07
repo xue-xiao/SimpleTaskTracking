@@ -1,0 +1,2 @@
+graft app/static
+global-exclude *.pyc

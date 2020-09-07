@@ -102,4 +102,42 @@ $ vue add bootstrap-vue
 ```
 Ref: https://bootstrap-vue.org/docs#vue-cli-3-plugin
 
+## 12. Other dependencies installed
+
+```
+$ npm install --save axios
+
+```
+
+Note that `--save` is used to install the dependency into local node-modules.
+
+## 13. Flask project structure
+
+Reference: 
+https://flask.palletsprojects.com/en/1.1.x/tutorial/layout/
+
+## 14. Integrate simple-task-tracking-flask/Pipfile with IntelliJ/PyCharm
+
+When you use IntelliJ or PyCharm to add a python SDK to the project,   
+IDE will give you several choices of interpreters, we will use the "pipenv" one.
+
+However, it may try to create pipenv for the whole project,   
+and create a new Pipfile under the project path, instead of using the one we have under `simple-task-tracking-flask`.
+
+That's because the project as a whole is imported as a module.
+   
+We can to go "File/Project Structure/Modules" and remove the current module (SimpleTaskTracking).
+Click "Apply".   
+Then we should manually import the two modules `simple-task-tracking-flask` and `simple-task-tracking-vue`.
+Click "Apply".  
+
+Now go to `"File/Project Structure/Modules/simple-task-tracking-flask/Module SDK/Add SDK".
+Select `pipenv` to create the `pipenv` environment.   
+
+Go to IntelliJ terminal and run `pipenv install` to install dependencies to the newly created pipenv environment. 
+Now IntelliJ and its terminal will use this virtual environment. 
+
+If you use another terminal outside IntelliJ, you need to do`pipenv install` again 
+because it might not share the same pipenv environment with IntelliJ. 
+The good thing is, they are using the same `Pipfile` and `Pipfile.lock`. 
 
