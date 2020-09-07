@@ -25,9 +25,10 @@ $ cd SimpleTaskTracking
 $ vue create simple-task-tracking-vue 
 ```
 
-I love to try new technologies in personal project. 
-So I selected vue3.0, which is a preview version as of 9/6/2020.
-In addition, I selected [history mode](https://router.vuejs.org/guide/essentials/history-mode.html) for prettier url looking.
+It will ask for Vue version. 
+Vue3.0 is a preview version as of 9/6/2020.
+I tried it first but found vue-bootstrap doesn't support Vue3.0 yet. 
+So I decided to stay with the mature Vue2.x for now and may upgrade it later.  
 
 ## 5. Add router
 
@@ -37,6 +38,8 @@ $ vue add router
 ```
 
 Ref: https://router.vuejs.org/installation.html#npm 
+
+I selected [history mode](https://router.vuejs.org/guide/essentials/history-mode.html) for prettier url looking.
 
 ## 6. Run it to verify Vue works 
 
@@ -83,10 +86,20 @@ $ git config credential.helper cache
 $ git config --global credential.usehttppath true
 ```
 
-Commit the change and push!
+## 10. Commit the change and push!
 
 ```
 $ git add -A
 $ git commit -am"Initialize Vue and Flask environment"
 $ git push
 ```
+
+## 11. Add bootstrap to vue
+
+```
+$ cd simple-task-tracking-vue
+$ vue add bootstrap-vue
+```
+Ref: https://bootstrap-vue.org/docs#vue-cli-3-plugin
+
+
