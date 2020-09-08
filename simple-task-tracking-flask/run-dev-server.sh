@@ -2,4 +2,6 @@
 
 export FLASK_APP=app
 export FLASK_ENV=development
-flask run
+
+# listen on all incoming IP
+flask run --host=0.0.0.0

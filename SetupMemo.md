@@ -131,13 +131,14 @@ Click "Apply".
 Then we should manually import the two modules `simple-task-tracking-flask` and `simple-task-tracking-vue`.
 Click "Apply".  
 
-Now go to `"File/Project Structure/Modules/simple-task-tracking-flask/Module SDK/Add SDK".
+Now go to "File/Project Structure/Modules/simple-task-tracking-flask/Module SDK/Add SDK".
 Select `pipenv` to create the `pipenv` environment.   
 
 Go to IntelliJ terminal and run `pipenv install` to install dependencies to the newly created pipenv environment. 
 Now IntelliJ and its terminal will use this virtual environment. 
 
 If you use another terminal outside IntelliJ, you need to do`pipenv install` again 
-because it might not share the same pipenv environment with IntelliJ. 
+because it might not share the same pipenv folder with IntelliJ. 
 The good thing is, they are using the same `Pipfile` and `Pipfile.lock`. 
 
+A quick reference of `pipenv`: https://swdev.online/manage-dependencies-python.html#toc_5
