@@ -35,13 +35,6 @@ https://getbootstrap.com/docs/4.0/examples/sign-in/
     export default {
         name: "Login",
         components: {ErrorAlert},
-        beforeCreate() {
-            // Note:
-            // Vue scoped style cannot apply to `body` but we don't want to change the `body` style of other pages.
-            // therefore we give this `body` a class so that we can specifically modify this page's body style.
-            // Referenced: https://stackoverflow.com/a/44544595
-            document.body.className = 'login';
-        },
         data: () => ({
             showError: false,
             errorMsg: "",
@@ -77,28 +70,19 @@ https://getbootstrap.com/docs/4.0/examples/sign-in/
     }
 </script>
 
-<style>
-    body.login {
+<style scoped>
+
+    div.text-center {
         height: 100%;
-        display: -ms-flexbox;
-        display: -webkit-box;
         display: flex;
-        -ms-flex-align: center;
-        -ms-flex-pack: center;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
         justify-content: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
     }
 
     .form-signin {
         width: 100%;
         max-width: 330px;
         padding: 15px;
-        margin: 0 auto;
+        margin: auto;
     }
 
     .form-signin .checkbox {
