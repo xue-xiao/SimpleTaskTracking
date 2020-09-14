@@ -5,7 +5,7 @@ from app.db_instance import db
 
 class User(db.Model, UserMixin):
     id = db.Column(db.String(36), primary_key=True)
-    username = db.Column(db.String(80), unique=False, nullable=False)
+    name = db.Column(db.String(80), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     is_active = db.Column(db.Boolean, default=True)
 
@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
         super(User, self).__init__(**kwargs)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.name
 
     def get_id(self):
         return self.id

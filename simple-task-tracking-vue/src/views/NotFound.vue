@@ -1,46 +1,28 @@
 <template>
-    <div class="container">
-        <div class="error-template">
-            <h1>Oops!</h1>
-            <h2>404 Not Found</h2>
-            <div class="error-details">
-                Sorry, an error has occurred, Requested page not found!
-            </div>
-            <div class="error-actions">
-                <router-link to="/" class="btn btn-primary btn-lg">
-                    <span class="glyphicon glyphicon-home"></span>
-                    Take Me Home
-                </router-link>
+    <div class="h-100">
+        <Header/>
+        <div class="row h-100">
+            <div class="m-auto">
+                <h1>404</h1>
+                <div class="error-details">
+                    Sorry, requested page not found!
+                </div>
+                <div class="error-actions my-5">
+                    <router-link to="/" class="btn btn-primary btn-lg">
+                        <font-awesome-icon icon="home" />
+                        Take Me Home
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Header from "../components/utils/Header";
     export default {
-        name: "NotFound"
+        name: "NotFound",
+        components: {Header}
     }
 </script>
 
-<style scoped>
-    div.container {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .error-template {
-        padding: 40px 15px;
-        text-align: center;
-        margin: auto;
-    }
-
-    .error-actions {
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    .error-actions .btn {
-        margin-right: 10px;
-    }
-</style>

@@ -1,110 +1,92 @@
+<!--
+Standard Bootstrap classes work in most cases.
+But those needs javascript cannot work.
+They include:
+    collapse
+    dropdown
+
+
+You have to use the component wrappers provided by bootstrap-vue
+
+-->
+
 <template>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a target="_blank" href="#" class="navbar-brand">My sApp.</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Inicio</a></li>
-                    <li class="active"><a href="http://bootsnipp.com/snippets/featured/nav-account-manager" target="_blank">Inspirado en este ejemplo</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">DropDown
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Link 2</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;
-                            <strong>Nombre</strong>
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="navbar-login">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <p class="text-center">
-                                                <span class="glyphicon glyphicon-user icon-size"></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <p class="text-left"><strong>Nombre Apellido</strong></p>
-                                            <p class="text-left small">correoElectronico@email.com</p>
-                                            <p class="text-left">
-                                                <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="navbar-login navbar-login-session">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <p>
-                                                <a href="#" class="btn btn-danger btn-block">Cerrar Sesion</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div>
+        <b-navbar toggleable="lg" type="light" variant="light">
+            <router-link class="navbar-brand" to="/">
+                <img alt="logo" src="../../assets/logo.png" height="30" class="d-inline-block align-top">
+                <Brand/>
+            </router-link>
+            <!-- Collapsable menu -->
+            <b-navbar-toggle target="nav-collapse"/>
+            <b-collapse id="nav-collapse" is-nav>
+                <b-navbar-nav>
+                    <b-nav-item to="/announce">Announce</b-nav-item>
+                    <b-nav-item to="/about">About</b-nav-item>
+                </b-navbar-nav>
+
+                <!-- Right aligned -->
+                <b-navbar-nav class="ml-auto">
+                    <!-- if logginIn -->
+                    <b-nav-item-dropdown right v-if="$session.loggedIn">
+                        <template v-slot:button-content>
+                            {{ $session.displayName }}
+                        </template>
+                        <b-dropdown-item href="#">Profile</b-dropdown-item>
+                        <b-dropdown-item-button @click="signOut">Sign Out</b-dropdown-item-button>
+                    </b-nav-item-dropdown>
+                    <!-- else -->
+                    <b-nav-item to="/login" v-else>Sign In</b-nav-item>
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
     </div>
 
 </template>
 
 <script>
+    import Brand from "../../components/const/Brand";
+    import {UserMixin} from "../../mixins/user-mixin";
+    import Axios from "axios";
+    import {API} from "../../config";
+
     export default {
-        name: "Header"
+        name: "Header",
+        components: {Brand},
+        mixins: [UserMixin],
+        methods: {
+            signOut: function () {
+                if (this.$session.loggedIn) {
+                    Axios.get(API.LOGOUT, {withCredentials: true});
+                }
+                this.resetUserSession();
+                this.$forceUpdate();
+                // TODO: clear cookies
+            }
+        },
+        created: function () {
+            // Cannot use Arrow function when we need to access `this` which is bound to current component instance.
+            if (this.$session.loggedIn == null) {
+                // Only make a call when loggedIn status is unknown.
+
+                Axios.get(API.USER_INFO, {withCredentials: true})
+                    .then(response => {
+                        if (response.data.success) {
+                            this.updateUserSession(response.data.payload);
+                            this.$forceUpdate();
+                        } else {
+                            this.$session.loggedIn = false;
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.$session.loggedIn = false;
+                    });
+            }
+        }
     }
 </script>
 
 <style scoped>
-    #nav {
-        padding: 30px;
-    }
 
-    #nav a {
-        font-weight: bold;
-        color: #2c3e50;
-    }
-
-    #nav a.router-link-exact-active {
-        color: #42b983;
-    }
-
-    .navbar-login
-    {
-        width: 305px;
-        padding: 10px;
-        padding-bottom: 0px;
-    }
-
-    .navbar-login-session
-    {
-        padding: 10px;
-        padding-bottom: 0px;
-        padding-top: 0px;
-    }
-
-    .icon-size
-    {
-        font-size: 87px;
-    }
 </style>

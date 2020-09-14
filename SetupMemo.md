@@ -106,7 +106,9 @@ Ref: https://bootstrap-vue.org/docs#vue-cli-3-plugin
 
 ```
 $ npm install --save axios
-
+$ npm install --save @fortawesome/fontawesome-svg-core
+$ npm install --save @fortawesome/free-solid-svg-icons
+$ npm install --save @fortawesome/vue-fontawesome@2
 ```
 
 Note that `--save` is used to install the dependency into local node-modules.

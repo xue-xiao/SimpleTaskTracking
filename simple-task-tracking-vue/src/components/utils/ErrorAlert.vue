@@ -1,11 +1,13 @@
 <template>
     <!-- Alert Reference:  https://www.w3schools.com/bootstrap4/bootstrap_alerts.asp-->
 
-    <div class="alert alert-danger">
-        <button @click="$emit('close')" type="button" class="close" data-dismiss="alert">&times;</button>
-        <div class="text-left">
+    <div class="alert alert-danger mx-0 px-3 row">
+        <div class="text-left col-11 px-0">
             {{ msg }}
         </div>
+        <button @click="$emit('close')"  class="close col-1">
+            &times;
+        </button>
     </div>
 </template>
 
@@ -22,16 +24,5 @@
 <style scoped>
     button.close {
         color: inherit;
-
-        /*Center the X button vertically!*/
-        position: absolute;
-        right: 0;
-        top: 50%;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
-        padding-right: inherit;
-    }
-    div.text-left {
-        padding-right: inherit;
     }
 </style>

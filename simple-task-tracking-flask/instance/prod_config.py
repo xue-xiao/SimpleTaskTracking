@@ -1,5 +1,5 @@
-"""
-Keep this file empty in source code.
-Replace the values in dev_config.py on prod host.
-Is there an automatic way to manage prod_config.py?
-"""
+SECRET_KEY=''
+SQLALCHEMY_DATABASE_URI = ''
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_NATIVE_UNICODE = True
+SQLALCHEMY_RECORD_QUERIES = False
