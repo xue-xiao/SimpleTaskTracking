@@ -1,21 +1,26 @@
 <template>
-  <div class="home">
-    <Header/>
-    <img alt="logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="home">
+        <Header/>
+        <Main v-if="$session.loggedIn"/>
+        <Welcome v-else/>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import Header from "@/components/utils/Header.vue";
+    // @ is an alias to /src
+    import Welcome from '../components/Welcome.vue'
+    import Header from "../components/layout/Header.vue";
+    import {UserMixin} from "../mixins/user-mixin";
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld,
-    Header
-  }
-}
+    export default {
+        name: 'Home',
+        mixins: [UserMixin],
+        components: {
+            Welcome,
+            Header
+        },
+        created() {
+            this.checkLoggedIn();
+        }
+    }
 </script>

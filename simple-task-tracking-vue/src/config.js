@@ -9,3 +9,7 @@ export const API = Object.freeze({
 export const RESOURCES = Object.freeze({
     DEFAULT_USER_AVATAR: "./assets/default_user.png",
 })
+
+export const CONSTANTS = Object.freeze({
+    BRAND_NAME: "Simple Task Tracking",
+})

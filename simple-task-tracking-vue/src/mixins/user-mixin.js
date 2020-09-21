@@ -1,9 +1,9 @@
-
 // Note: Mixin is a normal exported object when it is defined.
 //       As long as you export the object, you can import it in other files
 //       the benefit of use it as a mixin in another component is you have access to the component's vue instance, i.e., "this".
 
-import {RESOURCES} from "../config";
+import {API, RESOURCES} from "../config";
+import Axios from "axios";
 
 export const UserMixin = {
     methods: {
@@ -27,6 +27,41 @@ export const UserMixin = {
             this.$session.gender = null;
             this.$session.role = null;
             this.$session.department = null;
+        },
+
+        checkLoggedIn() {
+            if (this.$session.loggedIn == null) {
+                // Only make a call when loggedIn status is unknown.
+                Axios.get(API.USER_INFO, {withCredentials: true})
+                    .then(response => {
+                        if (response.data.success) {
+                            this.updateUserSession(response.data.payload);
+                            this.$forceUpdate();
+                        } else {
+                            this.resetUserSession();
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.resetUserSession();
+                    });
+            }
+        },
+
+        signOut() {
+            if (this.$session.loggedIn) {
+                Axios.get(API.LOGOUT, {withCredentials: true})
+                    .then(() => {
+                        this.resetUserSession();
+                        this.$forceUpdate();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.resetUserSession();
+                        this.$forceUpdate();
+                    });
+            }
+            // TODO: clear cookies
         }
     }
 }

@@ -12,10 +12,10 @@ You have to use the component wrappers provided by bootstrap-vue
 
 <template>
     <div>
-        <b-navbar toggleable="lg" type="light" variant="light">
+        <b-navbar toggleable="sm" type="light" variant="light">
             <router-link class="navbar-brand" to="/">
                 <img alt="logo" src="../../assets/logo.png" height="30" class="d-inline-block align-top">
-                <Brand/>
+                {{ brandName }}
             </router-link>
             <!-- Collapsable menu -->
             <b-navbar-toggle target="nav-collapse"/>
@@ -45,44 +45,18 @@ You have to use the component wrappers provided by bootstrap-vue
 </template>
 
 <script>
-    import Brand from "../../components/const/Brand";
     import {UserMixin} from "../../mixins/user-mixin";
-    import Axios from "axios";
-    import {API} from "../../config";
+    import {CONSTANTS} from "../../config";
 
     export default {
         name: "Header",
-        components: {Brand},
         mixins: [UserMixin],
-        methods: {
-            signOut: function () {
-                if (this.$session.loggedIn) {
-                    Axios.get(API.LOGOUT, {withCredentials: true});
-                }
-                this.resetUserSession();
-                this.$forceUpdate();
-                // TODO: clear cookies
-            }
-        },
+        data: () => ({
+            brandName: CONSTANTS.BRAND_NAME
+        }),
         created: function () {
             // Cannot use Arrow function when we need to access `this` which is bound to current component instance.
-            if (this.$session.loggedIn == null) {
-                // Only make a call when loggedIn status is unknown.
-
-                Axios.get(API.USER_INFO, {withCredentials: true})
-                    .then(response => {
-                        if (response.data.success) {
-                            this.updateUserSession(response.data.payload);
-                            this.$forceUpdate();
-                        } else {
-                            this.$session.loggedIn = false;
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        this.$session.loggedIn = false;
-                    });
-            }
+            this.checkLoggedIn();
         }
     }
 </script>

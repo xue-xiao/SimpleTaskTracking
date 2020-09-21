@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import Header from "../components/utils/Header";
+    import Header from "../components/layout/Header";
     export default {
         name: "NotFound",
         components: {Header}

@@ -4,15 +4,11 @@ import Vue from 'vue'
 import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
+import './fonts'
 
 // Add AwesomeIcons
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {library} from '@fortawesome/fontawesome-svg-core'
-// We need to import any font we need and add to library
-import {faHome,} from '@fortawesome/free-solid-svg-icons'
-
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-library.add(faHome)
 
 Vue.config.productionTip = false
 
