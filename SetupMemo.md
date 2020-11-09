@@ -63,6 +63,9 @@ If you never install `pipenv`, run once: `pip3 install pipenv`
 $ pipenv install flask flask_sqlalchemy flask-login 
 ```
 
+Note that `pipenv install` already installs everything in `Pipfile`.  
+This `pipenv install X Y Z` is used to install new dependencies to virtual environment and add them to `Pipfile`.
+
 ## 9. Update .gitignore
 
 I used python template when creating the repo on Github.
