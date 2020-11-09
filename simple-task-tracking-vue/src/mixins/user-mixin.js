@@ -53,12 +53,12 @@ export const UserMixin = {
                 Axios.get(API.LOGOUT, {withCredentials: true})
                     .then(() => {
                         this.resetUserSession();
-                        this.$forceUpdate();
+                        location.reload();
                     })
                     .catch(err => {
                         console.log(err);
                         this.resetUserSession();
-                        this.$forceUpdate();
+                        location.reload();
                     });
             }
             // TODO: clear cookies
